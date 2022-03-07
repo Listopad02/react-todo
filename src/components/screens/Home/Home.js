@@ -1,6 +1,7 @@
 import React from "react"
 import TodoItem from "./Item/TodoItem"
 import { useState } from "react"
+import CreateTodoField from "./CreateTodoField/CreateTodoField"
 
 const data = [
     {
@@ -29,12 +30,20 @@ const Home = () => {
         setTodos(copy)
     }
 
+    const removeTodo = (id) => {
+        setTodos([...todos].filter(t => t.id !== id))
+    }
+
     return (
         <div className="text-white w-4/5 mx-auto">
             <h1 className="text-2xl font-bold text-center mb-10">Todo App</h1>
+            <CreateTodoField setTodos={setTodos} />
             { todos.map(todo => (
-                <TodoItem key={todo.id} todo={todo} changeTodo={changeTodo} />
-            )) }
+                <TodoItem key={todo.id}
+                          todo={todo} 
+                          changeTodo={changeTodo}
+                          removeTodo={removeTodo} />
+            ))}
         </div>
     )
 }
